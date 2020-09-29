@@ -12,6 +12,7 @@ public class TernaryExample {
         String output;
         output = (val1<val2) ? "value 1 is less than value 2 so the result is 10" : "Value 1 is more than value 2 so the result is 5";
         System.out.println(output);
+        sc.close();
 
     }
 }
