@@ -1,4 +1,4 @@
-public class whileLoop {
+public class whileLoopPalindrome {
     public static void main(String[] args){
         int i = 586; //initialization
         int n = i;
