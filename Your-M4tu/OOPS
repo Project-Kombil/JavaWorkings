@@ -1,0 +1,5 @@
+OOPs Concept
+-Class - Blueprint with Properties and Function
+-Object - Instance of a class
+-Encapsulation - Wrapping up of data and related functions together
+-Data Abstraction - Exposing only relevant information - Using Access Modifiers(Private,Protected,Public,Default) (eg:public static void main)
