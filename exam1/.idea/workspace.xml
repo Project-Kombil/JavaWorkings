@@ -20,11 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97b772c3-b20e-4da2-be4c-a19254ffccf5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Your-M4tu/src/DoWhileExample.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Your-M4tu/src/ForLoopBreak.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Your-M4tu/src/WhileLoopBreak.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Your-M4tu/out/production/Your-M4tu/whileLoop.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Your-M4tu/src/whileLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Your-M4tu/src/whileLoopPalindrome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +48,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Example" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -107,10 +103,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="503" y="221" width="424" height="491" key="FileChooserDialogImpl" timestamp="1601531032229">
+    <state x="503" y="221" width="424" height="491" key="FileChooserDialogImpl" timestamp="1602043949287">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
-    <state x="503" y="221" width="424" height="491" key="FileChooserDialogImpl/0.27.1440.873@0.27.1440.873" timestamp="1601531032229" />
+    <state x="503" y="221" width="424" height="491" key="FileChooserDialogImpl/0.27.1440.873@0.27.1440.873" timestamp="1602043949287" />
     <state width="1394" height="216" key="GridCell.Tab.0.bottom" timestamp="1601529545613">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
