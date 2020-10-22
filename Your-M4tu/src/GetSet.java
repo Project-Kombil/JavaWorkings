@@ -18,6 +18,7 @@ class Circle{
     private final float pi = 3.14f;
 
     public Circle(int r){
+
         this.r = r;
     }
 
@@ -30,7 +31,7 @@ class Circle{
     }
     public float calArea(){
         return (pi*r*r);
-    }
+        }
     public float calParameter(){
         float p;
         p = 2*pi*r;
