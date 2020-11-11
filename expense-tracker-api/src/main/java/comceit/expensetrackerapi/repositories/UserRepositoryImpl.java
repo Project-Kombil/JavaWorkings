@@ -2,13 +2,14 @@ package comceit.expensetrackerapi.repositories;
 
 import comceit.expensetrackerapi.domains.User;
 import comceit.expensetrackerapi.exceptions.EAuthExceptions;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
@@ -26,12 +27,13 @@ public class UserRepositoryImpl implements UserRepository{
     public Integer create(String firstName, String lastName, String email, String password) throws EAuthExceptions {
         try{
             KeyHolder keyHolder = new GeneratedKeyHolder();
+            String hashedPassword = BCrypt.hashpw(password,BCrypt.gensalt(10));
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1,firstName);
                 ps.setString(2,lastName);
                 ps.setString(3,email);
-                ps.setString(4,password);
+                ps.setString(4,hashedPassword);
                 return ps;
             },keyHolder);
             return (Integer) keyHolder.getKeys().get("user_id");
@@ -42,7 +44,13 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public User findByEmailAndPassword(String email, String password) throws EAuthExceptions {
-        return null;
+        try {
+            User user = jdbcTemplate.queryForObject(SQL_FIND_BY_EMAIL, new Object[]{email},userRowMapper);
+            return user;
+        }
+        catch (EmptyResultDataAccessException e){
+            throw new EAuthExceptions("Invalid Email / Password");
+        }
     }
 
     @Override

@@ -3,11 +3,12 @@ package comceit.expensetrackerapi.services;
 import comceit.expensetrackerapi.domains.User;
 import comceit.expensetrackerapi.exceptions.EAuthExceptions;
 import comceit.expensetrackerapi.repositories.UserRepository;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.regex.Pattern;
+
 @Service
 @Transactional
 public class UserServiceImp implements UserService{
@@ -15,7 +16,14 @@ public class UserServiceImp implements UserService{
     UserRepository userRepository;
     @Override
     public User validateUser(String email, String password) throws EAuthExceptions {
-        return null;
+        if(email!=null)
+            email = email.toLowerCase();
+
+        User user  = userRepository.findByEmailAndPassword(email,password);
+        if(BCrypt.checkpw(password,user.getPassword()))
+            return user;
+        else
+            throw  new EAuthExceptions("Wrong Password");
     }
 
     @Override
