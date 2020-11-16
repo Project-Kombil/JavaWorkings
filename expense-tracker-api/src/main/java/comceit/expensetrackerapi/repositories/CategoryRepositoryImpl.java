@@ -24,6 +24,10 @@ public class CategoryRepositoryImpl implements CategoryRepository{
 
     private static final String SQL_UPDATE= "UPDATE et_categories " + "SET title = ?, description = ?" + " WHERE user_id = ? and category_id = ?;";
 
+    private static final String SQL_DELETE_CATEGORY = "DELETE FROM et_categories WHERE "+"user_id = ? and category_id = ?";
+
+    private static final String SQL_DELETE_ALL_TRANSACTIONS = "DELETE FROM et_transactions WHERE category_id = ?";
+
     @Autowired
     JdbcTemplate jdbcTemplate;
     @Override
@@ -61,7 +65,11 @@ public class CategoryRepositoryImpl implements CategoryRepository{
 
     @Override
     public void removeById(Integer userId, Integer categoryId) {
+        jdbcTemplate.update(SQL_DELETE_CATEGORY, new Object[]{userId, categoryId});
+    }
 
+    private void removeAllCatTransactions(Integer categoryId){
+        jdbcTemplate.update(SQL_DELETE_ALL_TRANSACTIONS, new Object[]{categoryId});
     }
 
     @Override
@@ -73,6 +81,7 @@ public class CategoryRepositoryImpl implements CategoryRepository{
             throw new EtResourceNotFoundException("Category Not Found");
         }
     }
+
 
     @Override
     public List<Category> findAll(Integer userId) throws EtResourceNotFoundException {
