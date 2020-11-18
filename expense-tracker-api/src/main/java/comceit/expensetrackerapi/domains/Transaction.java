@@ -7,7 +7,7 @@ public class Transaction {
     private String note;
     private Long transactionDate;
 
-    public Transaction(Integer transactionId, Integer userId, Double amount, String note, Long transactionDate) {
+    public Transaction(int transaction_id, Integer transactionId, Integer userId, Double amount, String note, Long transactionDate) {
         this.transactionId = transactionId;
         this.userId = userId;
         this.amount = amount;
