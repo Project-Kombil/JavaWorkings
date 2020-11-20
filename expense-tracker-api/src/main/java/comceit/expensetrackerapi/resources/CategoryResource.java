@@ -50,6 +50,7 @@ public class CategoryResource {
         List<Category> categories = categoryService.fetchAllCategories(userId);
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+
     @PutMapping("/{category_id}")
     public ResponseEntity<Map<String, Boolean>> updateCategory(
             HttpServletRequest request, @PathVariable("category_id")

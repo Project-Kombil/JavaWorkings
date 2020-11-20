@@ -1,5 +1,6 @@
 package comceit.expensetrackerapi.services;
 
+import comceit.expensetrackerapi.domains.Category;
 import comceit.expensetrackerapi.domains.Transaction;
 import comceit.expensetrackerapi.exceptions.EtBadRequestException;
 import comceit.expensetrackerapi.exceptions.EtResourceNotFoundException;
@@ -19,12 +20,12 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Override
     public List<Transaction> fetchAllTransaction(Integer userId, Integer categoryId) {
-        return null;
+        return transactionRepository.findAll(userId, categoryId);
     }
 
     @Override
     public Transaction fetchTransactionById(Integer userId, Integer categoryId, Integer transactionId) throws EtResourceNotFoundException {
-        return null;
+        return transactionRepository.findById(userId, categoryId, transactionId);
     }
 
     @Override
@@ -35,11 +36,13 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Override
     public void updateTransaction(Integer userId, Integer categoryId, Integer transactionId, Transaction transaction) throws EtBadRequestException {
-
+        transactionRepository.update(userId, categoryId, transactionId, transaction);
     }
 
     @Override
     public void removeTransaction(Integer userId, Integer categoryId, Integer transactionId) throws EtResourceNotFoundException {
-
+        Transaction oldTransaction = transactionRepository.findById(userId, categoryId, transactionId);
+        if(oldTransaction != null)
+            transactionRepository.removeById(userId, categoryId, transactionId);
     }
 }

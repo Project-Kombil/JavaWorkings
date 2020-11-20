@@ -1,5 +1,6 @@
 package comceit.expensetrackerapi.repositories;
 
+import comceit.expensetrackerapi.domains.Category;
 import comceit.expensetrackerapi.domains.Transaction;
 import comceit.expensetrackerapi.exceptions.EtBadRequestException;
 import comceit.expensetrackerapi.exceptions.EtResourceNotFoundException;
@@ -21,13 +22,20 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 
     private static final String SQL_FIND_BY_ID = "SELECT transaction_id, category_id, user_id, amount, note, transaction_date FROM et_transactions WHERE user_id = ? AND category_id = ? AND transaction_id = ?;";
 
+    private static final String SQL_FIND_ALL = "SELECT transaction_id, category_id, user_id, amount, note, transaction_date FROM et_transactions WHERE user_id = ? AND category_id = ?;";
+
+    private static final String SQL_UPDATE= "UPDATE et_transactions SET amount = ?, note = ?, transaction_date = ? WHERE user_id = ? and category_id = ? and transaction_id = ?;";
+
+    private static final String SQL_DELETE_TRANSACTION = "DELETE FROM et_transactions WHERE user_id = ? and category_id = ? and transaction_id = ?";
+
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Transaction> findAll(Integer userId, Integer categoryId) {
-        return null;
-    }
+        return jdbcTemplate.query(SQL_FIND_ALL, new Object[]{userId, categoryId}, transactionRowMapper);
+        }
+
 
     @Override
     public Transaction findById(Integer userId, Integer categoryId, Integer transactionId) throws EtResourceNotFoundException {
@@ -53,24 +61,36 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             }, keyHolder);
             return (Integer) keyHolder.getKeys().get("transaction_id");
         } catch(Exception e) {
-            throw new EtBadRequestException("Invalid Request"+SQL_CREATE+":"+userId+":"+categoryId+":"+amount+":"+note+":"+transactionDate);
+            throw new EtBadRequestException("Invalid Request");
         }
     }
 
     @Override
     public void update(Integer userId, Integer categoryId, Integer transactionId, Transaction transaction) throws EtBadRequestException {
+        try{
+            jdbcTemplate.update(SQL_UPDATE, new Object[]{
+                    transaction.getAmount(),
+                    transaction.getNote(),
+                    transaction.getTransactionDate(),
+                    userId,
+                    categoryId,
+                    transactionId
 
+            });
+        } catch (Exception e){
+            throw new EtBadRequestException("Invalid Data");
+        }
     }
 
     @Override
     public void removeById(Integer userId, Integer categoryId, Integer transactionId) throws EtResourceNotFoundException {
-
+        jdbcTemplate.update(SQL_DELETE_TRANSACTION, new Object[]{userId, categoryId, transactionId});
     }
 
     private RowMapper<Transaction> transactionRowMapper = ((rs,rowNum) -> {
         return new Transaction(
-                rs.getInt("transaction_id"),
                 rs.getInt("category_id"),
+                rs.getInt("transaction_id"),
                 rs.getInt("user_id"),
                 rs.getDouble("amount"),
                 rs.getString("note"),

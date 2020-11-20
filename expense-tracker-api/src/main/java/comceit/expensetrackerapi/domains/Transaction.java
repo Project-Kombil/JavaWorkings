@@ -1,18 +1,30 @@
 package comceit.expensetrackerapi.domains;
 
 public class Transaction {
+    private Integer categoryId;
     private Integer transactionId;
     private Integer userId;
     private Double amount;
     private String note;
     private Long transactionDate;
 
-    public Transaction(int transaction_id, Integer transactionId, Integer userId, Double amount, String note, Long transactionDate) {
+    public Transaction(Integer categoryId, Integer transactionId, Integer userId, Double amount, String note, Long transactionDate) {
+        this.categoryId = categoryId;
         this.transactionId = transactionId;
         this.userId = userId;
         this.amount = amount;
         this.note = note;
         this.transactionDate = transactionDate;
+    }
+
+
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Integer getTransactionId() {
